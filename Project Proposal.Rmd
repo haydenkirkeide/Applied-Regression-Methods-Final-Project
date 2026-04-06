@@ -1,0 +1,97 @@
+---
+title: 'Selling Paradise: Predicting Prices for Houses Sold in Miami, Florida in 2016'
+author: 'By Hayden Kirkeide and Ryleigh McGinn'
+date: 'Due: Friday, April 3rd by 11:59 PM'
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Proposal Contents
+
+1.  **Group Members:** Hayden Kirkeide and Ryleigh McGinn\
+
+2.  **Title:** "Selling Paradise: Predicting Prices for Houses Sold in Miami, Florida in 2016"\
+
+3.  **Narrative:** The research topic being explored is determining the factors that influence housing prices in Miami, Florida using a data set of around 14,000 single-family homes sold, which was truncated to 1,000 for computational efficiency and easier interpretations of data visualization. Research on the determinants regarding the housing prices of Miami is motivated by various considerations including urban growth, buyer and seller assistance, environment and location influences, and attributes of the characteristics of the home. According to Miami Realtors, among municipalities with at least 20,000 population, the city of Miami had the largest population gain with an increase of 16,337 residents, followed by Port St. Lucie with an increase of 11,880, Hialeah with 6,831, Pembroke Pines with 4,632, Coral Springs with 3,123 and Fort Lauderdale with 2,769 causing a 1.5% increase (Cororaton, 2025). Such evidence supports Miami’s population increase leading to high demand for homes.
+
+    Furthermore, analyzing the key factors that drive population growth and increasing demand for sale prices is essential for understanding various trends, especially the trends that occur in Miami. For example, Miami’s environment is one of the factors being used to examine housing prices. According to Shaikh Abdullah Al Rifat and Weibo Liu from the Geoscience Department of Florida Atlantic University, “...while urban expansion could be restricted by the presence of a water body (Atlantic Ocean for this study), it could also advance water resources and waterborne advantages to facilitate urban development at the same time. Generally, people tend to live near the coast due to the high recreational value, which is evident in south Florida.” (Al Rifat and Liu, 2019). To summarize, the coast can constrain expansion due to limited resources of creating homes near oceans and beaches, but the desirable scenery of the environment drives higher demand for properties located nearby. All the following factors contribute to creating data-driven analysis that examines Miami housing market trends.
+
+    As mentioned above, housing prices, especially in Miami, depend on various demographics including property characteristics such as living area, land size, structure quality, and special feature quality, In addition, location within Miami, including distance from the ocean or the city, and environmental factors such as noise and disturbance can have a significant impact on sale prices and how they are predicted. Based on these factors, we hypothesize that larger homes with better structural quality and desirable areas increase prices, while factors such as noise decrease the demand for these houses and therefore decrease their prices.
+
+    Furthermore, to address this research question, regression modeling techniques will be applied to examine the relationship between housing prices and the predictors given. The goal for this project is to understand each of the factors and how they will influence such prices as well as create a model that can accurately predict and estimate Miami home values.
+
+    Cororaton, Gay. “Miami Ranked No.11 in U.S. for Largest Population Increase.” *Miami Realtors*, 16 May 2025, <https://www.miamirealtors.com/2025/05/16/miami-ranked-no-11-in-u-s-for-largest-population-increase/>. Accessed 03 April 2026.
+
+    Al Rifat, Shaikh Abdulla, and Liu, Weibo. “Quantifying Spatiotemporal Patterns and Major Explanatory Factors of Urban Expansion in Miami Metropolitan Area During 1992-2016.” *Remote Sensing*, 25 October, 2019, <https://www.mdpi.com/2072-4292/11/21/2493>. Accessed 03 April 2026.
+
+4.  **Data Description:** The dataset we will be using in this project is the Miami Housing Dataset, optimized for use in regression analysis from Kaggle. The original dataset comes from the publication Machine Learning Applications to Land and Structure Valuation by Drs. Michael Mayer, Steven C. Bourrassa, Martin Hoesli, and Donato Scognamiglio from the Journal of Risk and Financial Management’s April 2022 issue. The Miami dataset used in Case Study #1 of the article includes contains 14,000 observations of properties sold in the year 2016 and was compiled by Dr. Broussard; collected from county tax appraisers and made available by the Florida Department of Revenue, each observation includes geographic coordinates in the form of latitude and longitude, a unique property identifier, distances between important landmarks including Miami’s central business district and the Atlantic Ocean, square footage, any additional value given to the property from the presence of special features such as pools and boat docks, the price the house sold for, the age of the property, and categorical variables that detail the livability and condition of the property (Mayers et al., 2022).
+
+In order to make the data more manageable for this short-term project, we truncated the data to 1,000 observations and randomized the observation to ensure a proper distribution of some of the categorical variables (most of the first 1,000 **`avno60plus`** variables had a value of 0 and could introduce bias into our dataset). Additionally, we have transformed the values of the **`month_sold`** column to correspond to the months the numbers in the original dataset represent using a formula in Excel/Google Sheets. This transformation has not affected the variables at all and was done for aesthetic purposes.
+
+Mayer, Michael, et al. “Machine learning applications to land and structure valuation.” *Journal of Risk and Financial Management*, vol. 15, no. 5, 20 Apr. 2022, p. 193, <https://doi.org/10.3390/jrfm15050193>.
+
+Broussard, Steven C. “Miami Housing Dataset.” *Kaggle*, 30 Jan. 2022, [www.kaggle.com/datasets/deepcontractor/miami-housing-dataset/data](http://www.kaggle.com/datasets/deepcontractor/miami-housing-dataset/data).\
+
+5.  **Data Dictionary:**
+
+    -   **`SALE_PRC`**: price the house was sold at (USD); numerical **response** variable
+
+    -   **`LATITUDE`**: latitudinal coordinates of each property; numerical variable
+
+    -   **`LONGITUDE`**: longitudinal coordinates of each property; numerical variable
+
+    -   **`PARCELNO`**: unique identifier for each property; numerical variable
+
+    -   **`LND_SQFOOT`**: square footage of the property (square feet); numerical variable
+
+    -   **`TOT_LVG_AREA`**: square footage of the living area on the property (square feet); numerical variable
+
+    -   **`SPEC_FEAT_VAL`**: value any special features (i.e. pool, boat dock, etc.) add to the overall house value (USD); numerical variable
+
+    -   **`RAIL_DIST`**: distance between the property and the nearest rail line in feet, used as an indicator of noise (feet); numerical variable
+
+    -   **`OCEAN_DIST`**: distance between the property and the ocean in feet (feet); numerical variable
+
+    -   **`WATER_DIST`**: distance between the property and the nearest body of water including rivers, canals, and oceans (feet); numerical variable
+
+    -   **`CNTR_DIST`**: distance between the property and the Miami central business district (feet); numerical variable
+
+    -   **`SUBCNTR_DI`**: distance to the nearest subcenter of Miami (feet); numerical variable
+
+    -   **`HWY_DIST`**: distance to the nearest highway, an indicator of noise (feet); numerical variable
+
+    -   **`age`**: age of the structure on the property (years); numerical variable.
+
+    -   **`avno60plus`**: measurement of airplane noise exceeding an acceptable level by city standards (binary); categorical variable
+
+    -   **`month_sold`**: month the property was sold in; categorical variable
+
+    -   **`structure_quality`**: quality of the structure on the property on a scale of 1 to 5, 1 being the worst and 5 being the best; categorical variable variable\
+
+6.  **Evidence of Data:**
+
+    First, we need to create the variable name, or object, by associating it with the csv file containing the data set. The data set was loaded into R and the object is named Miami.
+
+    ```{r}
+    library(readr)
+    Miami = 
+      read.csv("/Users/haydenkirkeidesmacbookair/Downloads/TRUNC_miami_housing_data.csv")
+    ```
+
+    For the second step, print the first 10 rows.
+
+    ```{r}
+    head(Miami, 10)
+    ```
+
+    Given the choice to load the data as a “tibble” or “data.frame” we decided to load it as a data.frame.
+
+    ```{r}
+    class(Miami)
+    ```
